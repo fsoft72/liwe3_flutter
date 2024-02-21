@@ -48,6 +48,11 @@ class InputText extends StatelessWidget {
     controller.text = value;
   }
 
+  /// Returns the value of the text field.
+  String getValue() {
+    return text.value;
+  }
+
   /// Sets the focus on the input text field.
   void setFocus() {
     focusNode.requestFocus();
