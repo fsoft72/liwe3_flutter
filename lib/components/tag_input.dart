@@ -18,7 +18,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liwe3_flutter/liwe3/components/input_text.dart';
+import 'input_text.dart';
 
 class TagInput extends StatelessWidget {
   TagInput({super.key});

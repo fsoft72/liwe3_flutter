@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liwe3_flutter/liwe3/components/button.dart';
-import 'package:liwe3_flutter/liwe3/stores/theme.dart';
+import 'button.dart';
+import '../stores/theme.dart';
 
 void confirmDialog({
   String title = 'Confirm',

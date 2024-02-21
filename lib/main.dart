@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liwe3_flutter/liwe3/components/button.dart';
-import 'package:liwe3_flutter/liwe3/components/input_text.dart';
-import 'package:liwe3_flutter/liwe3/components/tag_input.dart';
-import 'package:liwe3_flutter/liwe3/debug.dart';
-import 'package:liwe3_flutter/liwe3/components/dialog.dart';
-import 'package:liwe3_flutter/liwe3/stores/theme.dart';
+import 'components/button.dart';
+import 'components/input_text.dart';
+import 'components/tag_input.dart';
+import 'utils/debug.dart';
+import 'components/dialog.dart';
+import 'stores/theme.dart';
 
 void main() => runApp(const MyApp());
 
