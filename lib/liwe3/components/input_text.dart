@@ -13,15 +13,17 @@ class InputText extends StatelessWidget {
   late String placeholder;
   late final bool emptyOnSubmit;
   final focusNode = FocusNode();
+  late final int maxLines;
 
   InputText({
     super.key,
-    required String value,
+    String value = "",
     this.obscureText = false,
-    this.onChanged,
-    this.onSubmitted,
     this.placeholder = "",
     this.emptyOnSubmit = false,
+    this.onChanged,
+    this.onSubmitted,
+    this.maxLines = 1,
   }) {
     text.value = value;
     showPassword.value = !obscureText;
@@ -34,11 +36,19 @@ class InputText extends StatelessWidget {
     });
   }
 
+  /// Sets the value of the text field.
+  ///
+  /// This method sets the value of the text field both in the `text` observable
+  /// and in the `controller`. This ensures that both the GetX state and the
+  /// Flutter state of the text field are updated.
+  ///
+  /// The [value] parameter is the new value to be set for the text field.
   void setValue(String value) {
     text.value = value;
     controller.text = value;
   }
 
+  /// Sets the focus on the input text field.
   void setFocus() {
     focusNode.requestFocus();
   }
@@ -52,6 +62,7 @@ class InputText extends StatelessWidget {
             () => TextField(
               controller: controller,
               focusNode: focusNode,
+              maxLines: maxLines,
               onSubmitted: (value) {
                 if (onSubmitted != null) {
                   onSubmitted!(value.trim(), this);
