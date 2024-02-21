@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 
+import '../stores/theme.dart';
+
+// ignore: must_be_immutable
 class Button extends StatelessWidget {
   final String label;
-  final Function()? onPressed;
-  final Color? backgroundColor;
-  final Color? color;
-  final double? borderRadius;
-  final double? border;
-  final Color? borderColor;
+  final Function(dynamic)? onClick;
+  final LiWETheme mode;
 
-  const Button({
+  late Color? backgroundColor;
+  late Color? color;
+  late double? borderRadius;
+  late double? border;
+  late Color? borderColor;
+
+  Button({
     super.key,
     required this.label,
-    this.onPressed,
-    this.backgroundColor,
-    this.color,
-    this.borderRadius = 10,
-    this.border = 1.0,
-    this.borderColor = Colors.transparent,
-  });
+    this.onClick,
+    this.mode = LiWETheme.info,
+    double? borderRadius,
+    double? border,
+    Color? borderColor,
+    Color? backgroundColor,
+    Color? color,
+  }) {
+    Map<String, Color?> cols = theme.getVariant(mode);
+
+    this.backgroundColor = backgroundColor ?? cols["backgroundColor"];
+    this.color = color ?? cols["color"];
+    this.borderRadius = borderRadius ?? theme.borderRadius.value;
+    this.border = 1.0;
+    this.borderColor = borderColor ?? cols["borderColor"];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +48,8 @@ class Button extends StatelessWidget {
         ),
       ),
       onPressed: () {
-        if (onPressed != null) {
-          onPressed!();
+        if (onClick != null) {
+          onClick!(this);
         }
       },
       child: Text(
