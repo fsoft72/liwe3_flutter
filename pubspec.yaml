@@ -1,6 +1,9 @@
 name: liwe3_flutter
 description: "The LiWE3 Flutter library"
 
+homepage: https://www.liwe3.org
+repository: https://github.com/fsoft72/liwe3_flutter
+
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -15,7 +18,7 @@ description: "The LiWE3 Flutter library"
 # This version is used _only_ for the Runner app, which is used if you just do
 # a `flutter run` or a `flutter make-host-app-editable`. It has no impact
 # on any other native host app that you embed your Flutter project into.
-version: 0.0.1+1
+version: 0.0.1
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
