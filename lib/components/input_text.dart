@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+enum InputType { text, email, phone, password, number, url }
 
 class InputText extends StatelessWidget {
   final RxString text = ''.obs;
@@ -14,12 +17,18 @@ class InputText extends StatelessWidget {
   late final bool emptyOnSubmit;
   final focusNode = FocusNode();
   late final int maxLines;
+  late String validChars;
+  late final InputType type;
+
+  late final TextInputType keyboardType;
 
   InputText({
     super.key,
     String value = "",
     this.obscureText = false,
     this.placeholder = "",
+    this.validChars = '',
+    this.type = InputType.text,
     this.emptyOnSubmit = false,
     this.onChanged,
     this.onSubmitted,
@@ -34,6 +43,31 @@ class InputText extends StatelessWidget {
         onChanged!(text.value, this);
       }
     });
+
+    if (type == InputType.email) {
+      validChars = 'a-zA-Z0-9@._-';
+      keyboardType = TextInputType.emailAddress;
+    } else if (type == InputType.password) {
+      validChars = '';
+      obscureText = true;
+    } else if (type == InputType.number) {
+      validChars = '0-9';
+      keyboardType = TextInputType.number;
+    } else if (type == InputType.phone) {
+      validChars = '0-9+';
+      keyboardType = TextInputType.phone;
+    } else if (type == InputType.url) {
+      validChars = 'a-zA-Z0-9@._-:/';
+      keyboardType = TextInputType.url;
+    } else {
+      keyboardType = TextInputType.text;
+    }
+
+    if (validChars.isEmpty) {
+      validChars = '.*';
+    } else {
+      validChars = '[$validChars]';
+    }
   }
 
   /// Sets the value of the text field.
@@ -73,6 +107,10 @@ class InputText extends StatelessWidget {
                   onSubmitted!(value.trim(), this);
                 }
               },
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(validChars)),
+              ],
+              keyboardType: keyboardType,
               obscureText: !showPassword.value,
               decoration: InputDecoration(hintText: placeholder),
               style: const TextStyle(
