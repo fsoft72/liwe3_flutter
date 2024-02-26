@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liwe3/stores/app.dart';
 import 'components/button.dart';
 import 'components/input_text.dart';
 import 'components/tag_input.dart';
