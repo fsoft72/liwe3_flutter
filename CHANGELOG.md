@@ -1,5 +1,11 @@
 # Changelog
 
+# 0.0.4
+
+- ADD: API for AppStore now support token refresh.
+- ADD: appStore now stores all user data
+- ADD: main app has been split into multiple screens
+
 # 0.0.3
 
 - ADD: TagInput now has a placeholder prop.

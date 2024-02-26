@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:liwe3/stores/app.dart';
-import 'package:liwe3/utils/api.dart';
-import 'components/button.dart';
+
+import 'stores/app.dart';
 import 'demo/api.dart';
 import 'demo/buttons.dart';
 import 'demo/dialogs.dart';
 import 'demo/input.dart';
-import 'utils/debug.dart';
-import 'components/dialog.dart';
-import 'stores/theme.dart';
 
 void main() => runApp(const MyApp());
 

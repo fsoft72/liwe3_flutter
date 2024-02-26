@@ -11,6 +11,8 @@ if [ ! -d "lib" ]; then
     exit 1
 fi
 
+flutter clean
+flutter pub get
 flutter pub publish --dry-run
 
 
