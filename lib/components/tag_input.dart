@@ -20,8 +20,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'input_text.dart';
 
+// ignore: must_be_immutable
 class TagInput extends StatelessWidget {
-  TagInput({super.key});
+  String? placeholder;
+
+  TagInput({
+    super.key,
+    this.placeholder,
+  });
 
   final tags = <String>[].obs;
 
@@ -50,6 +56,7 @@ class TagInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final inputText = InputText(
       value: '',
+      placeholder: placeholder ?? '',
       onSubmitted: (tag, input) => {
         addTag(tag),
         input.setValue(''),
