@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liwe3/stores/app.dart';
 import 'components/button.dart';
 import 'components/input_text.dart';
 import 'components/tag_input.dart';
@@ -34,28 +35,136 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  void showDemoAlert() {
-    alertDialog(
-      title: "Alert",
-      content: "This is an alert message",
-      confirm: () {
-        zprint("Alert confirmed");
-      },
+  int _currentIndex = 0;
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  static Widget inputsScreen() {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            InputText(
+              placeholder: "This is a simple text input",
+            ),
+            InputText(
+              value: "",
+              obscureText: false,
+              placeholder: "Type an email here",
+              type: InputType.email,
+              prefixIcon: const Icon(Icons.email),
+            ),
+            InputText(
+              value: "",
+              placeholder: "Type password here",
+              prefixIcon: const Icon(Icons.lock),
+              type: InputType.password,
+            ),
+            InputText(value: "", obscureText: false, placeholder: "Type a number here", type: InputType.number),
+            TagInput(
+              placeholder: "Type tags here",
+            ),
+            InputText(
+              value: "Hello to multiline text",
+              maxLines: 5,
+              obscureText: false,
+              placeholder: "Type something",
+            ),
+          ],
+        ),
+      ),
     );
   }
 
-  void showDemoConfirm() {
-    confirmDialog(
-      title: "Confirm",
-      content: "Are you sure?",
-      confirm: () {
-        zprint("Confirm confirmed");
-      },
-      cancel: () {
-        zprint("Confirm canceled");
-      },
+  static Widget buttonsScreen() {
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
+              children: [
+                Button(label: 'info', mode: LiWETheme.info),
+                const SizedBox(width: 10), // Adds a gap of 10 pixels
+                Button(label: 'warn', mode: LiWETheme.warn),
+                const SizedBox(width: 10), // Adds a gap of 10 pixels
+                Button(label: 'error', mode: LiWETheme.error),
+                const SizedBox(width: 10), // Adds a gap of 10 pixels
+                Button(label: 'success', mode: LiWETheme.success),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  static Widget dialogsScreen() {
+    void showDemoAlert() {
+      alertDialog(
+        title: "Alert",
+        content: "This is an alert message",
+        confirm: () {
+          zprint("Alert confirmed");
+        },
+      );
+    }
+
+    void showDemoConfirm() {
+      confirmDialog(
+        title: "Confirm",
+        content: "Are you sure?",
+        confirm: () {
+          zprint("Confirm confirmed");
+        },
+        cancel: () {
+          zprint("Confirm canceled");
+        },
+      );
+    }
+
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
+              children: [
+                Button(
+                  label: "Show Alert",
+                  mode: LiWETheme.error,
+                  onClick: (_) {
+                    showDemoAlert();
+                  },
+                ),
+                const SizedBox(width: 10), // Adds a gap of 10 pixels
+                Button(
+                  label: "Show Confirm",
+                  mode: LiWETheme.warn,
+                  onClick: (_) {
+                    showDemoConfirm();
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  final List<Widget> _children = [
+    inputsScreen(),
+    buttonsScreen(),
+    dialogsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -63,72 +172,24 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              InputText(
-                value: "Hello",
-                obscureText: false,
-                placeholder: "Type something",
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
-                children: [
-                  Button(
-                    label: "Show Alert",
-                    mode: LiWETheme.error,
-                    onClick: (_) {
-                      showDemoAlert();
-                    },
-                  ),
-                  const SizedBox(width: 10), // Adds a gap of 10 pixels
-                  Button(
-                    label: "Show Confirm",
-                    mode: LiWETheme.warn,
-                    onClick: (_) {
-                      showDemoConfirm();
-                    },
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
-                children: [
-                  Button(label: 'info', mode: LiWETheme.info),
-                  const SizedBox(width: 10), // Adds a gap of 10 pixels
-                  Button(label: 'warn', mode: LiWETheme.warn),
-                  const SizedBox(width: 10), // Adds a gap of 10 pixels
-                  Button(label: 'error', mode: LiWETheme.error),
-                  const SizedBox(width: 10), // Adds a gap of 10 pixels
-                  Button(label: 'success', mode: LiWETheme.success),
-                ],
-              ),
-              TagInput(),
-              InputText(
-                value: "Hello",
-                maxLines: 5,
-                obscureText: false,
-                placeholder: "Type something",
-              ),
-              InputText(
-                value: "",
-                obscureText: false,
-                placeholder: "Type an email here",
-                type: InputType.email,
-                prefixIcon: const Icon(Icons.email),
-              ),
-              InputText(
-                value: "",
-                placeholder: "Type password here",
-                prefixIcon: const Icon(Icons.lock),
-                type: InputType.password,
-              ),
-              InputText(value: "", obscureText: false, placeholder: "Type a number here", type: InputType.number),
-            ],
+      body: _children[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inputs',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Buttons',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Dialogs',
+          ),
+        ],
       ),
     );
   }
