@@ -19,6 +19,8 @@ class InputText extends StatelessWidget {
   late final int maxLines;
   late String validChars;
   late final InputType type;
+  final Icon? prefixIcon;
+  final Icon? suffixIcon;
 
   TextInputType keyboardType = TextInputType.text;
 
@@ -33,6 +35,8 @@ class InputText extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
     this.maxLines = 1,
+    this.prefixIcon,
+    this.suffixIcon,
   }) {
     text.value = value;
     controller = TextEditingController(text: text.value);
@@ -113,7 +117,11 @@ class InputText extends StatelessWidget {
               ],
               keyboardType: keyboardType,
               obscureText: !showPassword.value,
-              decoration: InputDecoration(hintText: placeholder),
+              decoration: InputDecoration(
+                hintText: placeholder,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+              ),
               style: const TextStyle(
                 fontSize: 14,
               ),
