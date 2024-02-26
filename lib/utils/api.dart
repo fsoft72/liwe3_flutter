@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:get/get.dart';
 
 import '../stores/app.dart';
@@ -9,6 +11,10 @@ class DataStore {
   Map<String, dynamic> _dataMap = {};
 
   DataStore(Object dataObject) {
+    // dataObject is a string, we need to convert it to a map
+    if (dataObject is String) {
+      dataObject = jsonDecode(dataObject);
+    }
     var data = dataObject as Map<String, dynamic>;
     _dataMap = Map<String, dynamic>.from(data);
   }
@@ -29,12 +35,19 @@ class DataStore {
     return value;
     // return _dataMap.containsKey(key) ? _dataMap[key] : '';
   }
+
+  dump() {
+    zprint(jsonEncode(_dataMap));
+  }
 }
 
-class ApiService extends GetConnect {
+class LiWEAPIGateway extends GetConnect {
   _headers(headers) {
-    headers ??= {};
-    headers['Authorization'] = 'Bearer ${appStore.token}';
+    headers ??= <String, String>{};
+
+    if (appStore.token.isNotEmpty) {
+      headers['Authorization'] = 'Bearer ${appStore.token}';
+    }
 
     return headers;
   }
@@ -50,6 +63,29 @@ class ApiService extends GetConnect {
     }
 
     return "${appStore.baseURL}/$url";
+  }
+
+  _refreshToken() async {
+    // We don't want the old token to be present while refreshing
+    appStore.token = '';
+
+    zprint("==== REFRESH TOKEN");
+
+    if (appStore.refreshToken.isEmpty) {
+      return false;
+    }
+
+    var url = _url('/api/user/login/refresh');
+
+    var res = await post(url, jsonEncode({"token": appStore.refreshToken}), headers: _headers(null));
+
+    DataStore? resp = _checkResponse(res);
+
+    if (resp == null) return false;
+    if (resp.contains("error")) return false;
+
+    appStore.saveTokens(resp['access_token'], resp['refresh_token']);
+    return true;
   }
 
   _checkResponse(Response res) {
@@ -72,21 +108,31 @@ class ApiService extends GetConnect {
       return null;
     }
 
+    // convert body to DataStore
+    final ds = DataStore(res.body);
+
     if (res.statusCode! >= 300) {
-      final err = res.body['error'] ?? {'message': 'Unknown error'};
+      final err = ds['error'] ?? {"message": 'Unknown error'};
       // showError("Error from Server", err['message'], code: res.statusCode.toString());
-      zprint("Error from Server: ${err['message']}");
-      return null;
+      zprint("Error from Server: (${res.statusCode}) ${err['message']}");
+      return ds;
     }
 
-    return DataStore(res.body);
+    return ds;
   }
 
   Future doPOST(String url, dynamic body, {Map<String, String>? headers}) async {
     headers = _headers(headers);
     url = _url(url);
 
-    final res = await post('${appStore.baseURL}$url', body, headers: headers);
+    var res = await post(url, jsonEncode(body), headers: headers);
+
+    if (res.statusCode == 401) {
+      if (await _refreshToken()) {
+        headers = _headers(headers);
+        res = await post(url, jsonEncode(body), headers: headers);
+      }
+    }
 
     return _checkResponse(res);
   }
@@ -95,7 +141,14 @@ class ApiService extends GetConnect {
     headers = _headers(headers);
     url = _url(url);
 
-    final res = await patch('${appStore.baseURL}$url', body, headers: headers);
+    var res = await patch(url, jsonEncode(body), headers: headers);
+
+    if (res.statusCode == 401) {
+      if (await _refreshToken()) {
+        headers = _headers(headers);
+        res = await patch(url, jsonEncode(body), headers: headers);
+      }
+    }
 
     return _checkResponse(res);
   }
@@ -104,7 +157,14 @@ class ApiService extends GetConnect {
     headers = _headers(headers);
     url = _url(url);
 
-    final res = await get('${appStore.baseURL}$url', headers: headers, query: query);
+    var res = await get(url, headers: headers, query: query);
+
+    if (res.statusCode == 401) {
+      if (await _refreshToken()) {
+        headers = _headers(headers);
+        res = await get(url, headers: headers, query: query);
+      }
+    }
 
     return _checkResponse(res);
   }
