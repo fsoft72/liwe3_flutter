@@ -117,10 +117,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 obscureText: false,
                 placeholder: "Type an email here",
                 type: InputType.email,
+                prefixIcon: const Icon(Icons.email),
               ),
               InputText(
                 value: "",
                 placeholder: "Type password here",
+                prefixIcon: const Icon(Icons.lock),
                 type: InputType.password,
               ),
               InputText(value: "", obscureText: false, placeholder: "Type a number here", type: InputType.number),
