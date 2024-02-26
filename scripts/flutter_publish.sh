@@ -29,7 +29,7 @@ new_version=$(echo $version | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
 echo "New version: $new_version"
 
 # Update the version in the pubspec.yaml file
-sed -i '' "s/version: $version/version: $new_version/g" pubspec.yaml
+sed -i '' "s/^version: .*/version: $new_version/g" pubspec.yaml
 
 # Commit the changes
 git add pubspec.yaml
