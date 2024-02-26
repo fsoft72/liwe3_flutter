@@ -12,7 +12,7 @@ class InputText extends StatelessWidget {
   late final TextEditingController controller;
   late final Function(String, dynamic)? onChanged;
   late final Function(String, dynamic)? onSubmitted;
-  late final bool obscureText;
+  bool obscureText;
   late String placeholder;
   late final bool emptyOnSubmit;
   final focusNode = FocusNode();
@@ -20,7 +20,7 @@ class InputText extends StatelessWidget {
   late String validChars;
   late final InputType type;
 
-  late final TextInputType keyboardType;
+  TextInputType keyboardType = TextInputType.text;
 
   InputText({
     super.key,
@@ -35,7 +35,6 @@ class InputText extends StatelessWidget {
     this.maxLines = 1,
   }) {
     text.value = value;
-    showPassword.value = !obscureText;
     controller = TextEditingController(text: text.value);
     controller.addListener(() {
       text.value = controller.text;
@@ -62,6 +61,8 @@ class InputText extends StatelessWidget {
     } else {
       keyboardType = TextInputType.text;
     }
+
+    showPassword.value = !obscureText;
 
     if (validChars.isEmpty) {
       validChars = '.*';

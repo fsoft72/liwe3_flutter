@@ -118,6 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 placeholder: "Type an email here",
                 type: InputType.email,
               ),
+              InputText(
+                value: "",
+                placeholder: "Type password here",
+                type: InputType.password,
+              ),
               InputText(value: "", obscureText: false, placeholder: "Type a number here", type: InputType.number),
             ],
           ),
