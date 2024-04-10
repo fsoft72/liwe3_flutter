@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.0.5
+
+- ADD: Txt() component to display text with different styles.
+
 # 0.0.4
 
 - ADD: API for AppStore now support token refresh.
