@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'stores/app.dart';
+
 import 'demo/api.dart';
 import 'demo/buttons.dart';
 import 'demo/dialogs.dart';
 import 'demo/input.dart';
+import 'demo/text.dart';
 
 void main() => runApp(const MyApp());
 
@@ -47,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Widget> _children = [
     inputsScreen(),
     buttonsScreen(),
+    textScreen(),
     dialogsScreen(),
     apiScreen(),
   ];
@@ -61,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
+        fixedColor: Colors.blue,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -69,6 +74,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Buttons',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Texts',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
