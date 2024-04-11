@@ -1,5 +1,13 @@
 # Changelog
 
+# 0.0.7
+
+- ADD: `InputText` now supports `textAlign` prop.
+
+# 0.0.6
+
+- ADD: `InputText` now supports `color` and `placeholderColor` props.
+
 # 0.0.5
 
 - ADD: Txt() component to display text with different styles.

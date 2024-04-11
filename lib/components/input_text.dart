@@ -24,6 +24,7 @@ class InputText extends StatelessWidget {
 
   Color? color;
   Color? placeholderColor;
+  TextAlign? textAlign;
 
   TextInputType keyboardType = TextInputType.text;
 
@@ -42,6 +43,7 @@ class InputText extends StatelessWidget {
     this.suffixIcon,
     this.color,
     this.placeholderColor,
+    this.textAlign = TextAlign.left,
   }) {
     text.value = value;
     controller = TextEditingController(text: text.value);
@@ -132,6 +134,7 @@ class InputText extends StatelessWidget {
                 fontSize: 14,
                 color: color,
               ),
+              textAlign: TextAlign.left, // default to TextAlign.left if this.textAlign is null
             ),
           ),
         ),
