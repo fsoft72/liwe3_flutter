@@ -26,6 +26,13 @@ Widget inputsScreen() {
             type: InputType.password,
           ),
           InputText(value: "", obscureText: false, placeholder: "Type a number here", type: InputType.number),
+          InputText(
+            value: "",
+            obscureText: false,
+            placeholder: "Type a huge text",
+            fontSize: 30,
+            textAlign: TextAlign.center,
+          ),
           TagInput(
             placeholder: "Type tags here",
           ),
