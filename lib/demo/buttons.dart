@@ -19,8 +19,10 @@ Widget buttonsScreen() {
               Button(label: 'error', mode: LiWETheme.error),
               const SizedBox(width: 10), // Adds a gap of 10 pixels
               Button(label: 'success', mode: LiWETheme.success),
+              const SizedBox(width: 10), // Adds a gap of 10 pixels
             ],
           ),
+          Button(label: 'bigger', mode: LiWETheme.success, fontSize: 50),
         ],
       ),
     ),
