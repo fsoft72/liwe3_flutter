@@ -1,5 +1,10 @@
 # Changelog
 
+# 0.0.9
+
+- ADD: `fontSize` to `Button`
+- ADD: `label`, `showBorder` and `borderColor` to `InputText`
+
 # 0.0.8
 
 - ADD: `cancelLabel` and `confirmLabel` props to `confirmDialog`
