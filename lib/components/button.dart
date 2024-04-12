@@ -13,6 +13,7 @@ class Button extends StatelessWidget {
   late double? borderRadius;
   late double? border;
   late Color? borderColor;
+  double? fontSize;
 
   Button({
     super.key,
@@ -24,6 +25,7 @@ class Button extends StatelessWidget {
     Color? borderColor,
     Color? backgroundColor,
     Color? color,
+    this.fontSize,
   }) {
     Map<String, Color?> cols = theme.getVariant(mode);
 
@@ -56,6 +58,7 @@ class Button extends StatelessWidget {
         label,
         style: TextStyle(
           color: color,
+          fontSize: fontSize,
         ),
       ),
     );

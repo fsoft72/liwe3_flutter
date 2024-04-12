@@ -26,6 +26,9 @@ class InputText extends StatelessWidget {
   Color? placeholderColor;
   TextAlign textAlign;
   double? fontSize;
+  String? label;
+  bool showBorder = false;
+  Color? borderColor;
 
   TextInputType keyboardType = TextInputType.text;
 
@@ -46,6 +49,9 @@ class InputText extends StatelessWidget {
     this.placeholderColor,
     this.textAlign = TextAlign.left,
     this.fontSize,
+    this.label,
+    this.showBorder = false,
+    this.borderColor,
   }) {
     text.value = value;
     controller = TextEditingController(text: text.value);
@@ -127,10 +133,14 @@ class InputText extends StatelessWidget {
               keyboardType: keyboardType,
               obscureText: !showPassword.value,
               decoration: InputDecoration(
+                labelText: label,
                 hintText: placeholder,
                 hintStyle: TextStyle(color: placeholderColor),
                 prefixIcon: prefixIcon,
                 suffixIcon: suffixIcon,
+                border: showBorder
+                    ? OutlineInputBorder(borderSide: BorderSide(color: borderColor ?? Colors.black))
+                    : InputBorder.none,
               ),
               style: TextStyle(
                 fontSize: fontSize,
