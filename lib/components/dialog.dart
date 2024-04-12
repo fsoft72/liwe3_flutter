@@ -8,6 +8,8 @@ void confirmDialog({
   String content = 'Are you sure?',
   Function? confirm,
   Function? cancel,
+  String confirmLabel = 'Yes',
+  String cancelLabel = 'No',
 }) {
   void close(cback, result) {
     Get.back(result: result);
@@ -22,8 +24,9 @@ void confirmDialog({
       title: Text(title),
       content: Text(content),
       actions: [
-        Button(label: 'No', mode: LiWETheme.error, onClick: (_) => close(cancel, false)),
-        Button(label: 'Yes', mode: LiWETheme.success, onClick: (_) => close(confirm, true)),
+        Button(label: cancelLabel, mode: LiWETheme.error, onClick: (_) => close(cancel, false)),
+        const Spacer(),
+        Button(label: confirmLabel, mode: LiWETheme.success, onClick: (_) => close(confirm, true)),
       ],
     ),
   );
