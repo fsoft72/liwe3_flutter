@@ -1,5 +1,11 @@
 # Changelog
 
+# 0.0.8
+
+- ADD: `cancelLabel` and `confirmLabel` props to `confirmDialog`
+- ENH: added a lot of space between the buttons in `confirmDialog`
+- ADD: `fontSize` to `InputText` component
+
 # 0.0.7
 
 - ADD: `InputText` now supports `textAlign` prop.
