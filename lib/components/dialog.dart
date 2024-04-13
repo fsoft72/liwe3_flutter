@@ -24,14 +24,12 @@ void confirmDialog({
       title: Text(title),
       content: Text(content),
       actions: [
-        Expanded(
-          child: Row(
-            children: [
-              Button(label: cancelLabel, mode: LiWETheme.error, onClick: (_) => close(cancel, false)),
-              const Spacer(),
-              Button(label: confirmLabel, mode: LiWETheme.success, onClick: (_) => close(confirm, true)),
-            ],
-          ),
+        ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Button(label: cancelLabel, mode: LiWETheme.error, onClick: (_) => close(cancel, false)),
+            Button(label: confirmLabel, mode: LiWETheme.success, onClick: (_) => close(confirm, true)),
+          ],
         ),
       ],
     ),

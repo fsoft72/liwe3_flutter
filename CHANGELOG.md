@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.0
+
+- FIX: `confirmDialog` created wrong Dialog layout on some phones.
+
 # 0.0.10
 
 - ADD: conversions utils.
