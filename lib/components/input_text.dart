@@ -10,8 +10,8 @@ class InputText extends StatelessWidget {
   final RxString text = ''.obs;
   final RxBool showPassword = false.obs;
   late final TextEditingController controller;
-  late final Function(String, dynamic)? onChanged;
-  late final Function(String, dynamic)? onSubmitted;
+  late final Function(String, dynamic)? onChange;
+  late final Function(String, dynamic)? onSubmit;
   bool obscureText;
   late String placeholder;
   late final bool emptyOnSubmit;
@@ -40,8 +40,8 @@ class InputText extends StatelessWidget {
     this.validChars = '',
     this.type = InputType.text,
     this.emptyOnSubmit = false,
-    this.onChanged,
-    this.onSubmitted,
+    this.onChange,
+    this.onSubmit,
     this.maxLines = 1,
     this.prefixIcon,
     this.suffixIcon,
@@ -57,8 +57,8 @@ class InputText extends StatelessWidget {
     controller = TextEditingController(text: text.value);
     controller.addListener(() {
       text.value = controller.text;
-      if (onChanged != null) {
-        onChanged!(text.value, this);
+      if (onChange != null) {
+        onChange!(text.value, this);
       }
     });
 
@@ -123,8 +123,8 @@ class InputText extends StatelessWidget {
               focusNode: focusNode,
               maxLines: maxLines,
               onSubmitted: (value) {
-                if (onSubmitted != null) {
-                  onSubmitted!(value.trim(), this);
+                if (onSubmit != null) {
+                  onSubmit!(value.trim(), this);
                 }
               },
               inputFormatters: [
