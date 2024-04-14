@@ -1,5 +1,11 @@
 # Changelog
 
+# 0.1.1
+
+- ADD: `confirmDialog` and `alertDialog` now support `result` and can be `await`ed.
+- ADD: `onChange` in `TagInput`
+- BREAKING: `onChanged` and `onSubmitted` are now called `onChange` and `onSubmit` in `InputText`
+
 # 0.1.0
 
 - FIX: `confirmDialog` created wrong Dialog layout on some phones.
