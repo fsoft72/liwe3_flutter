@@ -3,6 +3,7 @@
 # 0.1.2
 
 - ENH: reworking some `Txt` fields, now if not specified they should take the default values.
+- ENH: more robust Dialogs cancellation
 
 # 0.1.1
 
