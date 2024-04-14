@@ -23,10 +23,12 @@ import 'input_text.dart';
 // ignore: must_be_immutable
 class TagInput extends StatelessWidget {
   String? placeholder;
+  Function? onChange;
 
   TagInput({
     super.key,
     this.placeholder,
+    this.onChange,
   });
 
   final tags = <String>[].obs;
@@ -38,10 +40,18 @@ class TagInput extends StatelessWidget {
     if (tags.contains(tag)) return;
 
     tags.add(tag);
+
+    if (onChange != null) {
+      onChange!(tags.toList());
+    }
   }
 
   void removeTag(String tag) {
     tags.remove(tag);
+
+    if (onChange != null) {
+      onChange!(tags.toList());
+    }
   }
 
   List<String> getTags() {
@@ -57,7 +67,7 @@ class TagInput extends StatelessWidget {
     final inputText = InputText(
       value: '',
       placeholder: placeholder ?? '',
-      onSubmitted: (tag, input) => {
+      onSubmit: (tag, input) => {
         addTag(tag),
         input.setValue(''),
         input.setFocus(),
