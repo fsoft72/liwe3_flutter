@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:liwe3/utils/debug.dart';
 
 import '../components/input_text.dart';
 import '../components/tag_input.dart';
@@ -50,6 +51,9 @@ Widget inputsScreen() {
           const SizedBox(height: 10),
           TagInput(
             placeholder: "Type tags here",
+            onChange: (tags) {
+              zprint("=== Tags: $tags");
+            },
           ),
           const SizedBox(height: 10),
           InputText(
