@@ -2,7 +2,7 @@
 
 # 0.1.2
 
-- ENH: reworing some `Txt` fields, now if not specified they should take the default values.
+- ENH: reworking some `Txt` fields, now if not specified they should take the default values.
 
 # 0.1.1
 

@@ -7,28 +7,30 @@ import '../utils/debug.dart';
 
 Widget dialogsScreen() {
   void showDemoAlert() async {
-    var res = await alertDialog(
-      title: "Alert",
-      content: "This is an alert message",
-      confirm: () {
-        zprint("Alert confirmed");
-      },
-    );
+    var res = (await alertDialog(
+          title: "Alert",
+          content: "This is an alert message",
+          confirm: () {
+            zprint("Alert confirmed");
+          },
+        )) ??
+        false;
 
     zprint("=== RESULT: $res");
   }
 
   void showDemoConfirm() async {
-    var result = await confirmDialog(
-      title: "Confirm",
-      content: "Are you sure?",
-      confirm: () {
-        zprint("Confirm confirmed");
-      },
-      cancel: () {
-        zprint("Confirm canceled");
-      },
-    );
+    bool result = (await confirmDialog(
+          title: "Confirm",
+          content: "Are you sure?",
+          confirm: () {
+            zprint("Confirm confirmed");
+          },
+          cancel: () {
+            zprint("Confirm canceled");
+          },
+        )) ??
+        false;
 
     zprint("=== RESULT: $result");
   }
