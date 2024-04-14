@@ -3,20 +3,20 @@ import 'package:get/get.dart';
 import 'button.dart';
 import '../stores/theme.dart';
 
-void confirmDialog({
+Future<dynamic> confirmDialog({
   String title = 'Confirm',
   String content = 'Are you sure?',
   Function? confirm,
   Function? cancel,
   String confirmLabel = 'Yes',
   String cancelLabel = 'No',
-}) {
+}) async {
   void close(cback, result) {
     Get.back(result: result);
     if (cback != null) cback();
   }
 
-  Get.dialog(
+  return Get.dialog(
     AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5), // Adjust border radius here
@@ -36,12 +36,12 @@ void confirmDialog({
   );
 }
 
-void alertDialog({
+Future<dynamic> alertDialog({
   String title = 'Alert',
   String content = 'Alert message',
   Function? confirm,
-}) {
-  Get.dialog(
+}) async {
+  return Get.dialog(
     AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5), // Adjust border radius here
@@ -56,7 +56,7 @@ void alertDialog({
           borderRadius: 10,
           borderColor: Colors.black,
           onClick: (_) {
-            Get.back();
+            Get.back(result: true);
             if (confirm != null) confirm();
           },
         ),

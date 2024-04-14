@@ -6,18 +6,20 @@ import '../stores/theme.dart';
 import '../utils/debug.dart';
 
 Widget dialogsScreen() {
-  void showDemoAlert() {
-    alertDialog(
+  void showDemoAlert() async {
+    var res = await alertDialog(
       title: "Alert",
       content: "This is an alert message",
       confirm: () {
         zprint("Alert confirmed");
       },
     );
+
+    zprint("=== RESULT: $res");
   }
 
-  void showDemoConfirm() {
-    confirmDialog(
+  void showDemoConfirm() async {
+    var result = await confirmDialog(
       title: "Confirm",
       content: "Are you sure?",
       confirm: () {
@@ -27,6 +29,8 @@ Widget dialogsScreen() {
         zprint("Confirm canceled");
       },
     );
+
+    zprint("=== RESULT: $result");
   }
 
   return Center(
