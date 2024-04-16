@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:liwe3/components/txt.dart';
 
 import '../components/button.dart';
 import '../stores/theme.dart';
 
-Widget buttonsScreen() {
+Future<Widget> buttonsScreen() async {
   return Center(
     child: SingleChildScrollView(
       child: Column(
@@ -23,6 +24,11 @@ Widget buttonsScreen() {
             ],
           ),
           Button(label: 'bigger', mode: LiWETheme.success, fontSize: 50),
+          const Txt('Title!', fontSize: 24.0, isBold: true),
+          const Txt('Hello World'),
+          const Txt('Red text', color: Colors.red),
+          const Txt('Italic text', isItalic: true),
+          const Txt('Underlined text', isUnderline: true, color: Colors.blue),
         ],
       ),
     ),

@@ -8,7 +8,7 @@ import '../stores/app.dart';
 import '../utils/api.dart';
 import '../utils/debug.dart';
 
-Widget apiScreen() {
+Future<Widget> apiScreen() async {
   var serv = LiWEAPIGateway();
 
   void user_me() async {

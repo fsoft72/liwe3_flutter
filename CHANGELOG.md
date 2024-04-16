@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.3
+
+- ADD: first implementation of `SecureStorage`
+
 # 0.1.2
 
 - ENH: reworking some `Txt` fields, now if not specified they should take the default values.

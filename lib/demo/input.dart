@@ -4,7 +4,7 @@ import 'package:liwe3/utils/debug.dart';
 import '../components/input_text.dart';
 import '../components/tag_input.dart';
 
-Widget inputsScreen() {
+Future<Widget> inputsScreen() async {
   return Center(
     child: SingleChildScrollView(
       child: Column(

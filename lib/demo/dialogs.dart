@@ -5,7 +5,7 @@ import '../components/dialog.dart';
 import '../stores/theme.dart';
 import '../utils/debug.dart';
 
-Widget dialogsScreen() {
+Future<Widget> dialogsScreen() async {
   void showDemoAlert() async {
     var res = (await alertDialog(
           title: "Alert",

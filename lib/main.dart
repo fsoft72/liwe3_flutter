@@ -7,7 +7,7 @@ import 'demo/api.dart';
 import 'demo/buttons.dart';
 import 'demo/dialogs.dart';
 import 'demo/input.dart';
-import 'demo/text.dart';
+import 'demo/sec_storage.dart';
 
 void main() => runApp(const MyApp());
 
@@ -46,10 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final List<Widget> _children = [
+  final List<Future<Widget>> _children = [
     inputsScreen(),
     buttonsScreen(),
-    textScreen(),
+    secureStorageScreen(),
     dialogsScreen(),
     apiScreen(),
   ];
@@ -60,7 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: _children[_currentIndex],
+      body: FutureBuilder<Widget>(
+        future: _children[_currentIndex],
+        builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator(); // show loading spinner while waiting
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}'); // show error message if there's an error
+          } else {
+            return snapshot.data!; // show the widget when data is available
+          }
+        },
+      ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
@@ -73,11 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Buttons',
+            label: 'Buttons and Texts',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Texts',
+            label: 'SecStorage',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
