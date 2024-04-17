@@ -3,6 +3,7 @@
 # 0.1.3
 
 - ADD: first implementation of `SecureStorage`
+- ADD: first implementation of encryption utils
 
 # 0.1.2
 

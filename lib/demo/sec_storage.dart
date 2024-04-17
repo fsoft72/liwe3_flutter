@@ -8,7 +8,7 @@ import 'package:liwe3/utils/secure_storage.dart';
 import '../components/txt.dart';
 
 Future<Widget> secureStorageScreen() async {
-  var ss = SecureStorage();
+  var ss = SecureStorage(123);
   var value = await ss.read("test") ?? '';
 
   return Center(

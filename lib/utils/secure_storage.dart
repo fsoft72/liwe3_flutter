@@ -1,64 +1,118 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:io';
+
 import 'package:liwe3/utils/debug.dart';
+import 'package:liwe3/utils/encryption.dart';
+import 'package:liwe3/utils/path.dart';
 
 class SecureStorage {
-  final _storage = const FlutterSecureStorage(
-    aOptions: AndroidOptions(
-      encryptedSharedPreferences: true,
-    ),
-  );
+  bool isReady = false;
+  String basePath = '';
+  final Map<String, String> _storage = {};
+  final int seeder;
+  String masterPassword = '';
+  String storagePath = '';
+
+  SecureStorage(this.seeder) {
+    init();
+  }
+
+  Future<void> init() async {
+    basePath = await getAppDir();
+    storagePath = '$basePath/.storage';
+
+    // create basePath + ".storage" folder if not exists
+    if (!Directory(storagePath).existsSync()) {
+      Directory(storagePath).createSync();
+    }
+
+    // create the masterPassword
+    masterPassword = toMD5(seeder.toString());
+
+    isReady = true;
+  }
+
+  Future<bool> _saveToFile(String key, String value) async {
+    try {
+      final file = File('$storagePath/$key');
+      // convert value to encrypted string
+      final encryptedValue = encryptString(value, masterPassword);
+
+      await file.writeAsString(encryptedValue);
+      return true;
+    } catch (e) {
+      zprint('Error saving $key to file: $e');
+      return false;
+    }
+  }
+
+  Future<String?> _readFromFile(String key) async {
+    try {
+      final file = File('$storagePath/$key');
+      final encryptedValue = await file.readAsString();
+      // convert encrypted value to decrypted string
+      final decryptedValue = decryptString(encryptedValue, masterPassword);
+
+      return decryptedValue;
+    } catch (e) {
+      zprint('Error reading $key from file: $e');
+      return null;
+    }
+  }
 
   Future<void> write(String key, String value) async {
+    if (!isReady) await init();
     try {
-      await _storage.write(key: key, value: value);
+      _storage[key] = value;
+
+      await _saveToFile(key, value);
     } catch (e) {
       // Handle exceptions related to writing to secure storage
       zprint('Error writing to secure storage: $e');
     }
   }
 
-  Future<String?> read(
-    String key, {
-    int retryCount = 3,
-    int retryDelay = 200,
-  }) async {
-    int attemptCount = 0;
-    String? value;
+  Future<String?> read(String key) async {
+    if (!isReady) await init();
+    try {
+      if (_storage.containsKey(key)) return _storage[key];
 
-    while (attemptCount < retryCount) {
-      try {
-        value = await _storage.read(key: key);
-        break; // Exit the loop if the read operation is successful
-      } catch (e) {
-        attemptCount++;
-        if (attemptCount == retryCount) {
-          // Handle exceptions related to reading from secure storage after all retries
-          zprint('Error reading from secure storage after $retryCount attempts: $e');
-        } else {
-          // Wait for the specified delay before retrying
-          await Future.delayed(Duration(milliseconds: retryDelay));
-        }
-      }
+      final value = await _readFromFile(key);
+      if (value != null) _storage[key] = value;
+
+      return value;
+    } catch (e) {
+      // Handle exceptions related to reading from secure storage
+      zprint('Error reading from secure storage: $e');
+      return null;
     }
-
-    return value;
   }
 
   Future<void> delete(String key) async {
     try {
-      await _storage.delete(key: key);
+      _storage.remove(key);
+
+      final file = File('$storagePath/$key');
+      await file.delete();
     } catch (e) {
       // Handle exceptions related to deleting from secure storage
-      zprint('Error deleting from secure storage: $e');
+      zprint('Error deleting $key from secure storage: $e');
     }
   }
 
-  Future<void> deleteAll() async {
+  Future<void> clear() async {
     try {
-      await _storage.deleteAll();
+      _storage.clear();
+
+      final dir = Directory(storagePath);
+      await dir.delete(recursive: true);
+
+      // create basePath + ".storage" folder if not exists
+      if (!Directory(storagePath).existsSync()) {
+        Directory(storagePath).createSync();
+      }
     } catch (e) {
-      // Handle exceptions related to deleting the entire secure storage
-      zprint('Error deleting secure storage: $e');
+      // Handle exceptions related to clearing secure storage
+      zprint('Error clearing secure storage: $e');
     }
   }
 }

@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
         future: _children[_currentIndex],
         builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CircularProgressIndicator(); // show loading spinner while waiting
+            return const CircularProgressIndicator(); // show loading spinner while waiting
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}'); // show error message if there's an error
           } else {
