@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/button.dart';
+import '../components/vscroll.dart';
 import '../stores/theme.dart';
 import '../stores/app.dart';
 import '../utils/api.dart';
@@ -41,33 +42,30 @@ Future<Widget> apiScreen() async {
     }
   }
 
-  return Center(
-    child: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
-            children: [
-              Button(
-                label: "Login ME",
-                mode: LiWETheme.info,
-                onClick: (_) {
-                  user_login();
-                },
-              ),
-              Button(
-                label: "User ME",
-                mode: LiWETheme.error,
-                onClick: (_) {
-                  user_me();
-                },
-              ),
-              const SizedBox(width: 10), // Adds a gap of 10 pixels
-            ],
+  return VScroll(
+    paddingLeft: 15,
+    paddingRight: 15,
+    children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
+        children: [
+          Button(
+            label: "Login ME",
+            mode: LiWETheme.info,
+            onClick: (_) {
+              user_login();
+            },
           ),
+          Button(
+            label: "User ME",
+            mode: LiWETheme.error,
+            onClick: (_) {
+              user_me();
+            },
+          ),
+          const SizedBox(width: 10), // Adds a gap of 10 pixels
         ],
       ),
-    ),
+    ],
   );
 }

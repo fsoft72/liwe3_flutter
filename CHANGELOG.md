@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.1.4 (WIP)
+
+- ADD: `VScroll` component
+
 # 0.1.3
 
 - ADD: first implementation of `SecureStorage`
