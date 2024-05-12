@@ -31,6 +31,8 @@ class LiWEFirebaseController extends GetxController {
     // Get an instance of FirebaseMessaging
     final messaging = FirebaseMessaging.instance;
 
+    await messaging.subscribeToTopic('all');
+
     await _requestPermissions(messaging);
     await _registerToken(messaging);
     await _initSettings(notificationInit);
