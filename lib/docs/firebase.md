@@ -52,3 +52,13 @@ This module streamlines the integration of Firebase Cloud Messaging (FCM) into y
    ```bash
    flutterfire configure
    ```
+
+5. Enable Firestore and Firebase Cloud Messaging in your Firebase project.
+
+   a. Click on "Firestore Database" in the left menu.
+   b. Click on "Create Database".
+   c. Click on "Start in test mode".
+   d. Click on "Enable".
+   e. Click on "Cloud Messaging" in the left menu.
+   f. Click on "Get Started".
+   g. Click on "Add Firebase SDK" to your app.

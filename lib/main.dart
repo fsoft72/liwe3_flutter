@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liwe3/controllers/firebase_controller.dart';
+import 'package:liwe3/demo/firebase_options.dart';
+import 'package:liwe3/demo/notif_impl.dart';
 
 import 'stores/app.dart';
 
@@ -9,7 +12,18 @@ import 'demo/dialogs.dart';
 import 'demo/input.dart';
 import 'demo/sec_storage.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final firebaseController = Get.put(LiWEFirebaseController());
+  await firebaseController.initialize(
+    notificationInit: notificationInit,
+    showNotification: showNotification,
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+// void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
