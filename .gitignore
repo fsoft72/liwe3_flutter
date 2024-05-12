@@ -48,3 +48,6 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 lib/demo/firebase_options.dart
+work/server_node/node_modules
+work/server_node/firebase-admin-sdk.json
+work/server_node/*lock*
