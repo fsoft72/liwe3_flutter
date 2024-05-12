@@ -47,3 +47,4 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+lib/demo/firebase_options.dart
