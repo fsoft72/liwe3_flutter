@@ -1,213 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FCM Notification</title>
-    <style>
-      /* Global Styles */
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
 
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background: #f0f2f5;
-        padding: 20px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FCM Notification</title>
+  <style>
+    /* Global Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-      h1,
-      h2 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f0f2f5;
+      padding: 20px;
+    }
 
-      /* Card Styles */
-      .card {
-        width: 100%;
-        max-width: 400px;
-        background: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 20px;
-      }
+    h1,
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 600;
-      }
+    /* Card Styles */
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-      input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #d9d9d9;
-        border-radius: 5px;
-      }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
 
-      button {
-        width: 100%;
-        padding: 12px;
-        background: #007bff;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #d9d9d9;
+      border-radius: 5px;
+    }
 
-      button:hover {
-        background: #0056b3;
-      }
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-      .alert {
-        margin-top: 15px;
-        padding: 12px;
-        border-radius: 5px;
-        text-align: center;
-        display: none;
-      }
+    button:hover {
+      background: #0056b3;
+    }
 
-      .alert-success {
-        background: #28a745;
-        color: #ffffff;
-      }
+    .alert {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 5px;
+      text-align: center;
+      display: none;
+    }
 
-      .alert-failure {
-        background: #dc3545;
-        color: #ffffff;
-      }
+    .alert-success {
+      background: #28a745;
+      color: #ffffff;
+    }
 
-      /* Table Styles */
-      .table-container {
-        width: 100%;
-        max-width: 700px;
-        background: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 20px;
-      }
+    .alert-failure {
+      background: #dc3545;
+      color: #ffffff;
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
+    /* Table Styles */
+    .table-container {
+      width: 100%;
+      max-width: 700px;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
 
-      th,
-      td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #d9d9d9;
-      }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-      th {
-        background: #007bff;
-        color: #ffffff;
-      }
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #d9d9d9;
+    }
 
-      .status-ok {
-        color: #28a745;
-        font-weight: 600;
-      }
+    th {
+      background: #007bff;
+      color: #ffffff;
+    }
 
-      .status-failed {
-        color: #dc3545;
-        font-weight: 600;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Send FCM Notification</h1>
-      <form id="notification-form">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required />
-        <label for="body">Body:</label>
-        <input type="text" id="body" name="body" required />
-        <button type="submit">Send</button>
-      </form>
-      <div class="alert" id="alert"></div>
-    </div>
+    .status-ok {
+      color: #28a745;
+      font-weight: 600;
+    }
 
-    <div class="table-container">
-      <h2>Sent Notifications</h2>
-      <table>
-        <thead>
+    .status-failed {
+      color: #dc3545;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Send FCM Notification</h1>
+    <form id="notification-form">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+      <label for="body">Body:</label>
+      <input type="text" id="body" name="body" required />
+      <select id="topic" name="topic">
+        <option value="all">All</option>
+        <option value="test1">test 1</option>
+        <option value="abc">abc</option>
+        <option value="technology">Technology (not working!)</option>
+      </select>
+      <button type="submit">Send</button>
+    </form>
+    <div class="alert" id="alert"></div>
+  </div>
+
+  <div class="table-container">
+    <h2>Sent Notifications</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="notification-list">
+        <!-- List of notifications will be populated here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document
+      .getElementById( "notification-form" )
+      .addEventListener( "submit", async ( event ) => {
+        event.preventDefault();
+        const title = document.getElementById( "title" ).value;
+        const body = document.getElementById( "body" ).value;
+        const topic = document.getElementById( "topic" ).value;
+
+        try {
+          const response = await fetch(
+            "http://localhost:3000/send-notification",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify( { title, body, topic } ),
+            }
+          );
+
+          const result = await response.json();
+          showAlert( result.message, "alert-success" );
+          loadNotifications( title, body, result.status ); // Refresh notifications list
+        } catch ( error ) {
+          console.error( "Error sending notification:", error );
+          showAlert( "Failed to send notification", "alert-failure" );
+        }
+      } );
+
+    function showAlert ( message, alertType ) {
+      const alertDiv = document.getElementById( "alert" );
+      alertDiv.className = `alert ${ alertType }`;
+      alertDiv.innerText = message;
+      alertDiv.style.display = "block";
+
+      setTimeout( () => {
+        alertDiv.style.display = "none";
+      }, 3000 );
+    }
+
+    function loadNotifications ( title, body, status ) {
+      const notificationList = document.getElementById( "notification-list" );
+      const statusClass = status === true ? "status-ok" : "status-failed";
+      const statusText = status === true ? "OK" : "Failed";
+      const row = `
           <tr>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="notification-list">
-          <!-- List of notifications will be populated here -->
-        </tbody>
-      </table>
-    </div>
-
-    <script>
-      document
-        .getElementById("notification-form")
-        .addEventListener("submit", async (event) => {
-          event.preventDefault();
-          const title = document.getElementById("title").value;
-          const body = document.getElementById("body").value;
-
-          try {
-            const response = await fetch(
-              "http://localhost:3000/send-notification",
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ title, body }),
-              }
-            );
-
-            const result = await response.json();
-            showAlert(result.message, "alert-success");
-            loadNotifications(title, body, result.status); // Refresh notifications list
-          } catch (error) {
-            console.error("Error sending notification:", error);
-            showAlert("Failed to send notification", "alert-failure");
-          }
-        });
-
-      function showAlert(message, alertType) {
-        const alertDiv = document.getElementById("alert");
-        alertDiv.className = `alert ${alertType}`;
-        alertDiv.innerText = message;
-        alertDiv.style.display = "block";
-
-        setTimeout(() => {
-          alertDiv.style.display = "none";
-        }, 3000);
-      }
-
-      function loadNotifications(title, body, status) {
-        const notificationList = document.getElementById("notification-list");
-        const statusClass = status === true ? "status-ok" : "status-failed";
-        const statusText = status === true ? "OK" : "Failed";
-        const row = `
-          <tr>
-            <td>${title}</td>
-            <td>${body}</td>
-            <td class="${statusClass}">${statusText}</td>
+            <td>${ title }</td>
+            <td>${ body }</td>
+            <td class="${ statusClass }">${ statusText }</td>
           </tr>
         `;
 
-        notificationList.innerHTML += row;
-      }
-    </script>
-  </body>
+      notificationList.innerHTML += row;
+    }
+  </script>
+</body>
+
 </html>

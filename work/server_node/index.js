@@ -19,18 +19,20 @@ admin.initializeApp( {
 
 // Define route to send notification
 app.post( '/send-notification', async ( req, res ) => {
-  const { title, body } = req.body;
+  const { title, body, topic = 'no-topic' } = req.body;
   try {
     const message = {
       notification: {
         title,
         body
       },
-      topic: 'all', // Replace with your desired topic
+      topic, // Replace with your desired topic
     };
 
+    console.log( "=== SENDING: ", message );
+
     const response = await admin.messaging().send( message );
-    res.json( { success: true, messageId: response } );
+    res.json( { message: "Notification sent successfully!", success: true, messageId: response } );
   } catch ( error ) {
     console.error( 'Error sending message:', error );
     res.status( 500 ).json( { success: false, error: error.message } );
