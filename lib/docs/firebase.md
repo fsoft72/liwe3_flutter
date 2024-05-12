@@ -19,3 +19,36 @@ This module streamlines the integration of Firebase Cloud Messaging (FCM) into y
    a. Click on the Android or iOS icon.
    b. Follow the instructions to add your app.
    c. Download the `google-services.json` or `GoogleService-Info.plist` file and place it in the `android/app` or `ios/Runner` directoryflutter create --platforms android ..
+
+4. Generate firebase_options.dart file.
+
+   a. First of all, be sure to have [Flutter CLI](https://firebase.google.com/docs/cli) installed.
+   For linux do:
+
+   ```bash
+   curl -sL https://firebase.tools | bash
+   ```
+
+   b. Then login using your Google account:
+
+   ```bash
+   firebase login
+   ```
+
+   c. (optional) Test if you can see your projects:
+
+   ```bash
+   firebase projects:list
+   ```
+
+   d. Add the flutterfire binary to your project:
+
+   ```bash
+   dart pub global activate flutterfire_cli
+   ```
+
+   e. Generate the file:
+
+   ```bash
+   flutterfire configure
+   ```
