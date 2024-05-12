@@ -18,6 +18,7 @@ class LiWEFirebaseController extends GetxController {
     required notificationInit,
     required showNotification,
     required options, // Firebase Options
+    required topics, // List of topics to subscribe to
   }) async {
     // Initialize Firebase with the default options
     await Firebase.initializeApp(
@@ -31,7 +32,10 @@ class LiWEFirebaseController extends GetxController {
     // Get an instance of FirebaseMessaging
     final messaging = FirebaseMessaging.instance;
 
-    await messaging.subscribeToTopic('all');
+    // Subscribe to the topics
+    for (String topic in topics) {
+      await messaging.subscribeToTopic(topic);
+    }
 
     await _requestPermissions(messaging);
     await _registerToken(messaging);

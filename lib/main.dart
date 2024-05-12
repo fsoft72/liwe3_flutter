@@ -20,6 +20,7 @@ void main() async {
     notificationInit: notificationInit,
     showNotification: showNotification,
     options: DefaultFirebaseOptions.currentPlatform,
+    topics: ['all', 'test1', 'abc'],
   );
 // void main() {
   runApp(const MyApp());
