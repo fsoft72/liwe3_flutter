@@ -5,6 +5,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../utils/debug.dart';
+
 late Function(RemoteMessage message) _showNotification;
 late FirebaseOptions _firebaseOptions;
 
@@ -127,7 +129,7 @@ Future<void> _backgroundHandler(RemoteMessage message) async {
     await _showNotification(message);
   } catch (e) {
     // Handle potential errors during Firebase initialization
-    print("Error initializing Firebase: $e");
+    zprint("Error initializing Firebase: $e");
   }
 
   return Future<void>.value();
