@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:liwe3/components/markdown.dart';
 
+import '../components/vscroll.dart';
 import '../components/button.dart';
 import '../components/dialog.dart';
 import '../stores/theme.dart';
@@ -36,32 +38,32 @@ Future<Widget> dialogsScreen() async {
   }
 
   return Center(
-    child: SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
-            children: [
-              Button(
-                label: "Show Alert",
-                mode: LiWETheme.error,
-                onClick: (_) {
-                  showDemoAlert();
-                },
-              ),
-              const SizedBox(width: 10), // Adds a gap of 10 pixels
-              Button(
-                label: "Show Confirm",
-                mode: LiWETheme.warn,
-                onClick: (_) {
-                  showDemoConfirm();
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
+    child: VScroll(
+      children: <Widget>[
+        MarkdownView(
+          text: "**Hello World**\n\nThis is a *text* in *italic*",
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
+          children: [
+            Button(
+              label: "Show Alert",
+              mode: LiWETheme.error,
+              onClick: (_) {
+                showDemoAlert();
+              },
+            ),
+            const SizedBox(width: 10), // Adds a gap of 10 pixels
+            Button(
+              label: "Show Confirm",
+              mode: LiWETheme.warn,
+              onClick: (_) {
+                showDemoConfirm();
+              },
+            ),
+          ],
+        ),
+      ],
     ),
   );
 }

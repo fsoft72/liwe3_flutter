@@ -3,6 +3,7 @@
 # 0.1.4 (WIP)
 
 - ADD: `VScroll` component
+- ADD: `MarkdownView` component
 
 # 0.1.3
 
