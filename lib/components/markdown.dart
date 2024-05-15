@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-// ignore: must_be_immutable
 class MarkdownView extends StatelessWidget {
-  late String text;
+  final String text;
+  final double fontSize;
 
-  MarkdownView({super.key, required this.text});
+  const MarkdownView({
+    super.key,
+    required this.text,
+    this.fontSize = 20.0, // set a default value
+  });
 
   @override
   Widget build(BuildContext context) {
     return MarkdownBody(
       data: text,
+      styleSheet: MarkdownStyleSheet(
+        p: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: fontSize),
+      ),
     );
   }
 }
