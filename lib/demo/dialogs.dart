@@ -40,8 +40,9 @@ Future<Widget> dialogsScreen() async {
   return Center(
     child: VScroll(
       children: <Widget>[
-        MarkdownView(
+        const MarkdownView(
           text: "**Hello World**\n\nThis is a *text* in *italic*",
+          fontSize: 30.0,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center, // Centers the buttons
