@@ -1,6 +1,10 @@
 # Changelog
 
-# 0.1.4 (WIP)
+# 0.1.5
+
+- ADD: support for `fontSize` in `MarkdownView`
+
+# 0.1.4
 
 - ADD: `VScroll` component
 - ADD: `MarkdownView` component
