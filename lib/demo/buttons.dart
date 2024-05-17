@@ -22,11 +22,20 @@ Future<Widget> buttonsScreen() async {
         ],
       ),
       Button(label: 'bigger', mode: LiWETheme.success, fontSize: 50),
+      Button(label: 'Gradient', mode: LiWETheme.success, fontSize: 50, gradient: const [Colors.red, Colors.blue]),
       const Txt('Title!', fontSize: 24.0, isBold: true),
       const Txt('Hello World'),
       const Txt('Red text', color: Colors.red),
       const Txt('Italic text', isItalic: true),
       const Txt('Underlined text', isUnderline: true, color: Colors.blue),
+      const Txt('Shader text', gradient: [Colors.red, Colors.blue, Colors.green]),
+      const Txt('Shader text', gradient: [Colors.green, Colors.black], isBold: true),
+      const Txt(
+        'Shader text',
+        gradient: [Colors.green, Colors.yellow, Colors.blue, Colors.black],
+        isBold: true,
+        fontSize: 30,
+      ),
     ],
   );
 }

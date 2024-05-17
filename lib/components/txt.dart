@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:liwe3/utils/debug.dart';
 
+import '../utils/intenals.dart';
+
 class Txt extends StatelessWidget {
   final String txt;
   final FontWeight fontWeight;
@@ -46,15 +48,13 @@ class Txt extends StatelessWidget {
     // if colors is not null, define stops so that the first is 0, the last is 1, and the is calculated
     // based on the length of the colors list
     if (gradient != null) {
-      final double _stop = 1 / gradient!.length;
-      final List<double> _stops = List<double>.generate(gradient!.length, (index) => _stop * (index + 1));
-      _stops[0] = 0;
+      List<double> stops = generateStops(gradient!.length);
 
       return ShaderMask(
         blendMode: BlendMode.srcIn,
         shaderCallback: (bounds) => LinearGradient(
           colors: gradient!,
-          stops: _stops,
+          stops: stops,
         ).createShader(
           Rect.fromLTWH(10, 0, bounds.width, bounds.height),
         ),

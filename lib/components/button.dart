@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/intenals.dart';
 import '../stores/theme.dart';
 
 // ignore: must_be_immutable
@@ -13,6 +14,7 @@ class Button extends StatelessWidget {
   late double? borderRadius;
   late double? border;
   late Color? borderColor;
+  final List<Color>? gradient;
   double? fontSize;
 
   Button({
@@ -26,6 +28,7 @@ class Button extends StatelessWidget {
     Color? backgroundColor,
     Color? color,
     this.fontSize,
+    this.gradient,
   }) {
     Map<String, Color?> cols = theme.getVariant(mode);
 
@@ -38,29 +41,52 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor, // sets the background color
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 0),
-          side: BorderSide(
-            color: borderColor ?? Colors.transparent,
-            width: border ?? 0,
+    // ignore: no_leading_underscores_for_local_identifiers
+    Widget _mkButton({required Color bgColor, required Color shadowColor}) {
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: bgColor, // sets the background color
+          shadowColor: shadowColor, // sets the shadow color
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 0),
           ),
         ),
-      ),
-      onPressed: () {
-        if (onClick != null) {
-          onClick!(this);
-        }
-      },
-      child: Text(
-        label,
-        style: TextStyle(
-          color: color,
-          fontSize: fontSize,
+        onPressed: () {
+          if (onClick != null) {
+            onClick!(this);
+          }
+        },
+        child: Text(
+          label,
+          style: TextStyle(
+            color: color,
+            fontSize: fontSize,
+          ),
         ),
-      ),
+      );
+    }
+
+    if (gradient != null) {
+      List<double> stops = generateStops(gradient!.length);
+
+      return Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: gradient!,
+            stops: stops,
+          ),
+          borderRadius: BorderRadius.circular(borderRadius ?? 0),
+        ),
+        child: _mkButton(
+          bgColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
+      );
+    }
+
+    return _mkButton(
+      bgColor: backgroundColor!,
+      shadowColor: Colors.transparent,
     );
   }
 }
