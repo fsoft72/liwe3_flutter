@@ -13,12 +13,12 @@ class AppStore extends GetxController {
   String email = '';
   String uid = '';
 
-  saveTokens(String token, String refreshToken) {
+  tokensSave(String token, String refreshToken) {
     this.token = token;
     this.refreshToken = refreshToken;
   }
 
-  setUser(String uid, String username, String name, String lastname, String email) {
+  userSet(String uid, String username, String name, String lastname, String email) {
     this.uid = uid;
     this.username = username;
     this.name = name;
