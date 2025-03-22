@@ -16,7 +16,6 @@ Future<Widget> inputsScreen() async {
       const SizedBox(height: 10),
       InputText(
         value: "",
-        obscureText: false,
         placeholder: "Type an email here",
         type: InputType.email,
         prefixIcon: const Icon(Icons.email),
@@ -33,7 +32,6 @@ Future<Widget> inputsScreen() async {
       const SizedBox(height: 10),
       InputText(
         value: "",
-        obscureText: false,
         placeholder: "Type a huge text",
         fontSize: 30,
         textAlign: TextAlign.center,
@@ -41,11 +39,9 @@ Future<Widget> inputsScreen() async {
       const SizedBox(height: 10),
       InputText(
         value: "",
-        obscureText: false,
         placeholder: "Type a number here",
         type: InputType.number,
         label: "A label",
-        showBorder: true,
         borderColor: Colors.blue,
       ),
       const SizedBox(height: 10),
@@ -59,7 +55,6 @@ Future<Widget> inputsScreen() async {
       InputText(
         value: "Hello to multiline text",
         maxLines: 5,
-        obscureText: false,
         placeholder: "Type something",
       ),
     ],
