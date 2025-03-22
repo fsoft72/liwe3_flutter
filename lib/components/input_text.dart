@@ -27,7 +27,7 @@ class InputText extends StatelessWidget {
   TextAlign textAlign;
   double? fontSize;
   String? label;
-  bool showBorder = false;
+  bool showBorder = true;
   Color? borderColor;
 
   TextInputType keyboardType = TextInputType.text;
@@ -50,7 +50,7 @@ class InputText extends StatelessWidget {
     this.textAlign = TextAlign.left,
     this.fontSize,
     this.label,
-    this.showBorder = false,
+    this.showBorder = true,
     this.borderColor,
   }) {
     text.value = value;
