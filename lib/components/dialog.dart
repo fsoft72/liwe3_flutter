@@ -15,7 +15,7 @@ Future<dynamic> _createDialog({
       title: Text(title),
       content: Text(content),
       actions: [
-        ButtonBar(
+        OverflowBar(
           alignment: MainAxisAlignment.spaceBetween,
           children: actions,
         ),
