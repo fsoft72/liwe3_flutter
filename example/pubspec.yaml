@@ -1,0 +1,26 @@
+
+# example/pubspec.yaml
+name: liwe3_example
+description: Demonstrates how to use the liwe3 library.
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # Depend on the library itself using a path dependency
+  liwe3:
+    path: ../ # Points to the root directory of the liwe3 package
+
+  # Add any other dependencies the *example* app needs (like get if used in main.dart)
+  get: ^4.6.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
