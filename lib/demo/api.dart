@@ -17,10 +17,13 @@ Future<Widget> apiScreen() async {
 
     if (res != null) {
       if (res.contains("error")) {
-        zprint("Error: ${res['error']}");
+        zprint("=== Error: ${res['error']}");
         return;
       }
     }
+
+    res?.dump();
+    appStore.dump();
   }
 
   void user_login() async {
@@ -35,8 +38,8 @@ Future<Widget> apiScreen() async {
         zprint("Error: ${res['error']}");
         return;
       }
-      appStore.saveTokens(res['access_token'], res['refresh_token']);
-      appStore.setUser(res['id'], res['username'], res['name'], res['lastname'], res['email']);
+      appStore.tokensSave(res['access_token'], res['refresh_token']);
+      appStore.userSet(res['id'], res['username'], res['name'], res['lastname'], res['email']);
 
       appStore.dump();
     }

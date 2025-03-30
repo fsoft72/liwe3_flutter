@@ -84,7 +84,7 @@ class LiWEAPIGateway extends GetConnect {
     if (resp == null) return false;
     if (resp.contains("error")) return false;
 
-    appStore.saveTokens(resp['access_token'], resp['refresh_token']);
+    appStore.tokensSave(resp['access_token'], resp['refresh_token']);
     return true;
   }
 
@@ -93,7 +93,7 @@ class LiWEAPIGateway extends GetConnect {
     if (res.statusCode == null) {
       // show an alert using GetX
       // showError("Error", "Wallet server unreachable", code: ERR_WALLET_SERVER_NOT_REACHABLE.toString());
-      zprint("Error: Server unreachable");
+      zprint("=== Error: Server unreachable");
       return null;
     }
 
@@ -127,7 +127,7 @@ class LiWEAPIGateway extends GetConnect {
 
     var res = await post(url, jsonEncode(body), headers: headers);
 
-    if (res.statusCode == 401) {
+    if (res.statusCode == 403) {
       if (await _refreshToken()) {
         headers = _headers(headers);
         res = await post(url, jsonEncode(body), headers: headers);
@@ -143,7 +143,7 @@ class LiWEAPIGateway extends GetConnect {
 
     var res = await patch(url, jsonEncode(body), headers: headers);
 
-    if (res.statusCode == 401) {
+    if (res.statusCode == 403) {
       if (await _refreshToken()) {
         headers = _headers(headers);
         res = await patch(url, jsonEncode(body), headers: headers);
@@ -159,7 +159,7 @@ class LiWEAPIGateway extends GetConnect {
 
     var res = await get(url, headers: headers, query: query);
 
-    if (res.statusCode == 401) {
+    if (res.statusCode == 403) {
       if (await _refreshToken()) {
         headers = _headers(headers);
         res = await get(url, headers: headers, query: query);

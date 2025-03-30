@@ -11,6 +11,7 @@ import 'demo/buttons.dart';
 import 'demo/dialogs.dart';
 import 'demo/input.dart';
 import 'demo/sec_storage.dart';
+import 'demo/config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    appStore.baseURL = "http://10.179.1.155:12000";
+    appStore.baseURL = BASE_URL;
 
     return GetMaterialApp(
       title: 'Flutter Demo',
