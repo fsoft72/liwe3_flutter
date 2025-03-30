@@ -1,5 +1,9 @@
 # Changelog
 
+# 0.2.0
+
+- **BREAKING**: removed all notification related code. This will be handled by the `liwe3_notification` package (not published yet).
+
 # 0.1.5
 
 - ADD: support for `fontSize` in `MarkdownView`
