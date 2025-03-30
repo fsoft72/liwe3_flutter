@@ -1,0 +1,11 @@
+{
+    "patterns": [
+        "build",
+        ".*",
+        "*.lock",
+        "package-lock.json",
+        "*lock*",
+        "node_modules",
+        "firebase-admin-sdk.json"
+    ]
+}
